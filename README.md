@@ -47,7 +47,6 @@
 ### Tech Stack <a name="tech-stack"></a>
 
 <ul>
-  <li>postgresSQL</li>
   <li>Ruby</li>
 </ul>
 
@@ -82,7 +81,6 @@ This repository might include files with plain SQL that can be used to recreate 
 ### Prerequisites
 
 - Ruby installed locally
-- postgreSQL installed locally
 
 ### Setup
 
@@ -102,12 +100,19 @@ cd OOP-School-Library
 
 ### Install
 
-To recreate the database use the following comand:
+Use the following command to run the project:
 
 ```sh
-psql -U username -f schema.sql
-psql -U username -f data.sql
-psql -U username -f queries.sql
+bundle install
+```
+
+### Usage
+
+To run the project, execute the following command in irb:
+
+```sh
+name = Person.new(age)
+name = Student.new(age, classroom)
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
