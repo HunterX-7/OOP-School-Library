@@ -26,4 +26,4 @@ puts(fisica.students.each_with_index.map { |student, index| "#{index + 1}. #{stu
 puts(biblia.rentals.map { |rental| rental.person.name })
 puts(ericka.rentals.map { |rental| rental.person.name })
 
-puts(max.rentals.map { |rental| rental.date })
+puts(max.rentals.map(&:date))
