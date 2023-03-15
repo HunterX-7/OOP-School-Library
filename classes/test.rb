@@ -3,7 +3,6 @@ require_relative 'student'
 require_relative 'book'
 require_relative 'rental'
 
-
 max = Student.new(22, 'maximilianus')
 ericka = Student.new(20, 'ericka')
 
