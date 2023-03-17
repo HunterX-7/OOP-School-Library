@@ -1,3 +1,5 @@
+require_relative 'rental'
+
 class Book
   attr_accessor :title, :author
   attr_reader :rentals
@@ -9,8 +11,12 @@ class Book
   end
 
   def add_rental(rental)
-    @rentals.push(rental)
-    rental.book = self
-    rental.person.rentals.push(rental) unless rental.person.rentals.include?(rental)
+    @rentals.push(rental) unless @rentals.include?(rental)
+  end
+
+  def rental_list
+    list = ''
+    @rentals.each { |rental| list << "\n|#{rental.person.name} | #{rental.book.title} | #{rental.date}|" }
+    list << "\n\n"
   end
 end
