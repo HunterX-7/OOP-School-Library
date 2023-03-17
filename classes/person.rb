@@ -1,8 +1,9 @@
 require 'securerandom'
 require_relative 'nameable'
+require_relative 'rental'
 
 class Person < Nameable
-  attr_accessor :name, :age
+  attr_accessor :name, :age, :parent_permission
   attr_reader :id, :rentals
 
   def initialize(age, name = 'Unknown', parent_permission: true)
@@ -31,8 +32,12 @@ class Person < Nameable
   end
 
   def add_rental(rental)
-    @rentals.push(rental)
-    rental.person = self
-    rental.book.rentals.push(rental) unless rental.book.rentals.include?(rental)
+    @rentals.push(rental) unless @rentals.include?(rental)
+  end
+
+  def rental_list
+    list = ''
+    @rentals.each { |rental| list << "\n|#{rental.person.name} | #{rental.book.title} | #{rental.date}|" }
+    list << "\n\n"
   end
 end
