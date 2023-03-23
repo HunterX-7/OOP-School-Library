@@ -1,16 +1,20 @@
+require 'json'
 require_relative 'person'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
 require_relative 'book'
 require_relative 'app_module'
+require_relative 'app_store'
 
 class App
   include Persons
+  include Store
   def initialize
     @books = []
     @people = []
     @rentals = []
+    load_data
   end
 
   def start
@@ -40,20 +44,6 @@ class App
     puts 'Please press any key to proceed.'
     gets.chomp
     puts ''
-  end
-
-  def menu
-    puts 'Welcome to the School Library App!'
-    puts 'Please select an option by entering a corresponding number:'
-    puts '1 - List all books.'
-    puts '2 - List all people.'
-    puts '3 - Create a person.'
-    puts '4 - Create a book.'
-    puts '5 - Create a rental.'
-    puts '6 - List all rentals for a given person id.'
-    puts '7 - Quit the App'
-
-    select_option(1, 7)
   end
 
   def select_option(start, close)
@@ -126,19 +116,23 @@ class App
   end
 
   def create_rental
-    puts 'Select a Book number from the following list:'
-    puts book_list
-    number_book = select_option(1, @books.length)
-    select_book = @books[number_book - 1]
-    puts 'Select a Person number from the following list:'
-    puts people_list
-    number_person = select_option(1, @people.length)
-    select_person = @people[number_person - 1]
-    puts 'Enter the Date of the rental: Date Ex. [2020-12-30]'
-    date = gets.chomp
-    rental = Rental.new(select_person, select_book, date)
-    @rentals.push(rental) unless rental.nil?
-    puts 'The Rental has been successfully created.'
+    if @books == [] || @people == []
+      puts 'Your book or user entry is empty, create one first!'
+    else
+      puts 'Select a Book number from the following list:'
+      puts book_list
+      number_book = select_option(1, @books.length)
+      select_book = @books[number_book - 1]
+      puts 'Select a Person number from the following list:'
+      puts people_list
+      number_person = select_option(1, @people.length)
+      select_person = @people[number_person - 1]
+      puts 'Enter the Date of the rental: Date Ex. [2020-12-30]'
+      date = gets.chomp
+      rental = Rental.new(date, select_book, select_person)
+      @rentals.push(rental) unless rental.nil?
+      puts 'The Rental has been successfully created.'
+    end
   end
 
   def person_rentals

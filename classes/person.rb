@@ -1,4 +1,5 @@
 require 'securerandom'
+require 'json'
 require_relative 'nameable'
 require_relative 'rental'
 
@@ -6,9 +7,9 @@ class Person < Nameable
   attr_accessor :name, :age, :parent_permission
   attr_reader :id, :rentals
 
-  def initialize(age, name = 'Unknown', parent_permission: true)
+  def initialize(age, id = SecureRandom.uuid, name = 'Unknown', parent_permission: true)
     super()
-    @id = SecureRandom.uuid
+    @id = id
     @name = name
     @age = age
     @parent_permission = parent_permission
@@ -39,5 +40,10 @@ class Person < Nameable
     list = ''
     @rentals.each { |rental| list << "\n|#{rental.person.name} | #{rental.book.title} | #{rental.date}|" }
     list << "\n\n"
+  end
+
+  def to_json(*_args)
+    hash = { class: self.class, id: @id, name: @name, age: @age, parent_permission: @parent_permission }
+    hash.to_json
   end
 end
