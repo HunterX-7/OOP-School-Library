@@ -22,7 +22,6 @@ describe Book do
     end
   end
 
-
   context 'Test to_json method' do
     it 'passes the object to JSON format' do
       book = Book.new('The Divine Comedy', 'Dante Aligheiri')
